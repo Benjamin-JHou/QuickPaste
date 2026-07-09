@@ -1,19 +1,20 @@
 # QuickPaste · 快贴
 
-> Cross-device instant text & image transfer PWA. No download, no login, scan to use. Deployed on GitHub Pages — zero cost.
+> Cross-device instant text & image transfer PWA. No download, no login, scan to use. Deployed on GitHub Pages.
 
 ## ✨ Features
 
 - 🚀 **Zero account** — Open the page, enter room ID or scan QR code to start
 - 🌐 **True cross-platform** — iOS / Android / Windows / macOS / Linux browsers all work together
-- 📷 **Text & images** — Instant delivery; images auto-compressed to ~500KB
+- 📷 **Text, images & video** — Instant delivery; images/videos support compressed or original-quality sending
 - ⚡ **P2P direct transfer** — WebRTC DataChannel, content never touches any server
 - 🪶 **No download** — PWA installable to home screen, runs like a native app
-- 💸 **Zero cost** — Free GitHub Pages hosting, no server expenses
 - 🔒 **Privacy first** — Room closes, everything clears; no backend logs
 - 🌐 **Cross-Platform Transfer** — Any device with a browser works; iOS, Android, Windows, macOS, Linux, no app required
 - 🔐 **Privacy Transfer** — End-to-end encrypted, no logs, no server storage. Your content stays between your devices
 - 🕐 **Temporary Transfer** — Data exists only during the session. Close the room and everything is gone — nothing persisted anywhere
+- 🖼 **Lossless image transfer** — Toggle to send original-quality images, no compression
+- 🎬 **Video transfer** — Send video files; choose between compressed or lossless original quality
 
 ## 🌏 Languages
 

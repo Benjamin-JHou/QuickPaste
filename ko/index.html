@@ -138,18 +138,24 @@
 
       <!-- Top bar -->
       <header class="topbar">
-        <button id="leaveBtn" class="icon-btn" aria-label="离开房间" title="离开房间">
+        <button id="leaveBtn" class="icon-btn" aria-label="방 나가기" title="방 나가기">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
         </button>
 
         <div class="room-title">
-          <span class="room-label">房间号</span>
+          <span class="room-label">방 번호</span>
           <span class="room-id" id="roomId" aria-live="polite">------</span>
         </div>
 
-        <button id="copyUrlBtn" class="icon-btn" aria-label="复制分享链接" title="复制分享链接">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-        </button>
+        <div class="topbar-actions">
+          <button id="qualityBtn" class="icon-btn" aria-label="화질 모드 전환" title="화질 모드 전환">
+            <svg id="qlIconLossy" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12h8M12 8l4 4-4 4"/></svg>
+            <svg id="qlIconLossless" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12l3 3 5-5"/></svg>
+          </button>
+          <button id="copyUrlBtn" class="icon-btn" aria-label="공유 링크 복사" title="공유 링크 복사">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          </button>
+        </div>
       </header>
 
       <!-- QR + peers -->
@@ -177,22 +183,26 @@
 
       <!-- Composer -->
       <div class="composer">
-        <button id="imageBtn" class="icon-btn composer-btn" aria-label="发送图片" title="发送图片">
+        <button id="imageBtn" class="icon-btn composer-btn" aria-label="이미지 전송" title="이미지 전송">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
         </button>
+        <button id="videoBtn" class="icon-btn composer-btn" aria-label="비디오 전송" title="비디오 전송">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </button>
         <input id="imageInput" type="file" accept="image/*" multiple hidden />
+        <input id="videoInput" type="file" accept="video/*" multiple hidden />
         <div class="input-wrapper">
           <input
             id="textInput"
             type="text"
             class="text-input"
-            placeholder="说点什么…"
+            placeholder="메시지를 입력하세요…"
             autocomplete="off"
             enterkeyhint="send"
-            aria-label="Type a message"
+            aria-label="메시지 입력"
           />
         </div>
-        <button id="sendBtn" class="send-btn" aria-label="发送">
+        <button id="sendBtn" class="send-btn" aria-label="전송">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>

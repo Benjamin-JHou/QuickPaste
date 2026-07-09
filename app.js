@@ -26,6 +26,9 @@
   const customPeerHost = $('customPeerHost');
   const customPeerKey = $('customPeerKey');
   const savePeerConfig = $('savePeerConfig');
+  const qualityBtn = $('qualityBtn');
+  const videoBtn = $('videoBtn');
+  const videoInput = $('videoInput');
 
   // ====== State ======
   const STATE = {
@@ -36,6 +39,7 @@
     peers: new Map(),
     roomPrefix: null,
     config: loadConfig(),
+    lossless: false,   // image/video quality mode (false = compressed, true = original)
   };
 
   // ====== Helpers ======
@@ -91,7 +95,7 @@
     if (msg.type === 'system') {
       div.classList.add('system');
       div.textContent = msg.text;
-    } else if (msg.type === 'image') {
+    } else if (msg.type === 'image' || msg.type === 'video') {
       div.classList.add('image-msg', msg.mine ? 'mine' : 'theirs');
       if (!msg.mine && msg.from) {
         const meta = document.createElement('div');
@@ -99,12 +103,23 @@
         meta.textContent = msg.from;
         div.appendChild(meta);
       }
-      const img = document.createElement('img');
-      img.src = msg.data;
-      img.alt = 'Image';
-      img.loading = 'lazy';
-      img.addEventListener('click', () => openImage(msg.data));
-      div.appendChild(img);
+      if (msg.type === 'video') {
+        const video = document.createElement('video');
+        video.src = msg.data;
+        video.controls = true;
+        video.preload = 'metadata';
+        video.style.maxWidth = '100%';
+        video.style.borderRadius = '8px';
+        video.style.display = 'block';
+        div.appendChild(video);
+      } else {
+        const img = document.createElement('img');
+        img.src = msg.data;
+        img.alt = 'Image';
+        img.loading = 'lazy';
+        img.addEventListener('click', () => openImage(msg.data));
+        div.appendChild(img);
+      }
     } else {
       div.classList.add(msg.mine ? 'mine' : 'theirs');
       if (!msg.mine && msg.from) {
@@ -315,6 +330,32 @@
         data: data.data,
       });
     }
+
+    if (data.kind === 'bin-chunk') {
+      if (!_binChunks.has(data.id)) _binChunks.set(data.id, []);
+      _binChunks.get(data.id)[data.idx] = new Uint8Array(data.data);
+    }
+
+    if (data.kind === 'bin-done') {
+      const chunks = _binChunks.get(data.id);
+      if (chunks) {
+        const total = chunks.reduce((s, c) => s + c.length, 0);
+        const buf = new Uint8Array(total);
+        let off = 0;
+        for (const c of chunks) { buf.set(c, off); off += c.length; }
+        _binChunks.delete(data.id);
+        const blob = new Blob([buf], { type: data.mime || 'application/octet-stream' });
+        const url = URL.createObjectURL(blob);
+        const isVideo = (data.mime || '').startsWith('video/');
+        const p = STATE.peers.get(peerId);
+        appendMessage({
+          type: isVideo ? 'video' : 'image',
+          mine: false,
+          from: p ? p.name : shortId(peerId),
+          data: url,
+        });
+      }
+    }
   }
 
   function broadcastExcept(excludeId, payload) {
@@ -346,12 +387,72 @@
     toast(`Processing ${n} image${n > 1 ? 's' : ''}…`);
     for (const file of list) {
       try {
-        const dataUrl = await compressImage(file, 1200, 0.8);
-        appendMessage({ type: 'image', mine: true, data: dataUrl });
-        broadcast({ kind: 'msg', msgType: 'image', data: dataUrl });
+        if (STATE.lossless) {
+          // Lossless: send original binary
+          const id = `img-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+          appendMessage({ type: 'image', mine: true, data: URL.createObjectURL(file) });
+          await sendBinaryChunks(file, id, file.type);
+        } else {
+          // Compressed: canvas resize + JPEG
+          const dataUrl = await compressImage(file, 1200, 0.8);
+          appendMessage({ type: 'image', mine: true, data: dataUrl });
+          broadcast({ kind: 'msg', msgType: 'image', data: dataUrl });
+        }
       } catch (e) {
         console.error(e);
         toast('Image processing failed: ' + (e.message || e));
+      }
+    }
+  }
+
+  // ====== Binary (lossless) transfer ======
+  const CHUNK_SIZE = 64 * 1024; // 64 KB per chunk
+  const _binChunks = new Map(); // id -> Uint8Array[]
+
+  function sendBinaryChunks(file, id, mime) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error('File read failed'));
+      reader.onload = (e) => {
+        const buf = e.target.result;
+        const total = buf.byteLength;
+        const totalChunks = Math.ceil(total / CHUNK_SIZE);
+        let idx = 0;
+        const sendNext = () => {
+          if (idx >= totalChunks) {
+            // Send done marker
+            broadcast({ kind: 'bin-done', id, mime });
+            resolve();
+            return;
+          }
+          const slice = buf.slice(idx * CHUNK_SIZE, (idx + 1) * CHUNK_SIZE);
+          broadcast({ kind: 'bin-chunk', id, idx, total: totalChunks, mime, data: slice });
+          idx++;
+          // Yield to keep UI responsive
+          setTimeout(sendNext, 0);
+        };
+        sendNext();
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  async function sendVideos(files) {
+    const list = Array.from(files || []).filter((f) => f.type.startsWith('video/'));
+    if (!list.length) {
+      toast('No video files found');
+      return;
+    }
+    const n = list.length;
+    toast(`Sending ${n} video${n > 1 ? 's' : ''}…`);
+    for (const file of list) {
+      try {
+        const id = `vid-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+        appendMessage({ type: 'video', mine: true, data: URL.createObjectURL(file) });
+        await sendBinaryChunks(file, id, file.type);
+      } catch (e) {
+        console.error(e);
+        toast('Video send failed: ' + (e.message || e));
       }
     }
   }
@@ -446,6 +547,41 @@
     e.target.value = '';
   });
 
+  videoBtn.addEventListener('click', () => videoInput.click());
+  videoInput.addEventListener('change', (e) => {
+    if (e.target.files && e.target.files.length) { sendVideos(e.target.files); }
+    e.target.value = '';
+  });
+
+  // ── Quality toggle (lossless mode) ──
+  function updateQualityUI() {
+    const el = $('qualityBtn');
+    const iconLossy  = $('qlIconLossy');
+    const iconLossless = $('qlIconLossless');
+    if (!el) return;
+    if (STATE.lossless) {
+      el.classList.add('active');
+      if (iconLossy) iconLossy.style.display = 'none';
+      if (iconLossless) iconLossless.style.display = 'inline';
+    } else {
+      el.classList.remove('active');
+      if (iconLossy) iconLossy.style.display = 'inline';
+      if (iconLossless) iconLossless.style.display = 'none';
+    }
+  }
+
+  qualityBtn.addEventListener('click', () => {
+    STATE.lossless = !STATE.lossless;
+    saveConfig({ lossless: STATE.lossless });
+    updateQualityUI();
+  });
+
+  // Restore lossless preference from config
+  if (STATE.config.lossless) {
+    STATE.lossless = true;
+    updateQualityUI();
+  }
+
   document.addEventListener('paste', (e) => {
     if (roomScreen.classList.contains('active') && e.clipboardData) {
       const imgs = Array.from(e.clipboardData.items || [])
@@ -501,13 +637,6 @@
       applyTheme(current === 'pink' ? '' : 'pink');
     });
   }
-
-  savePeerConfig.addEventListener('click', () => {
-    const v = customPeerHost.value.trim();
-    const k = customPeerKey.value.trim();
-    saveConfig({ host: v || undefined, key: k || undefined });
-    toast('Config saved (takes effect next room)');
-  });
 
   // Service Worker
   if ('serviceWorker' in navigator) {

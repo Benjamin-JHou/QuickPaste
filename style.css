@@ -528,6 +528,24 @@ img    { display: block; max-width: 100%; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Top bar action group */
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Quality toggle active state */
+#qualityBtn.active {
+  background: var(--bg-elevated);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+[data-theme="pink"] #qualityBtn.active {
+  border-color: var(--accent2);
+  color: var(--accent2);
+}
+
 .icon-btn {
   display: flex;
   align-items: center;
