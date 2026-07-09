@@ -1,169 +1,180 @@
-# QuickPaste · 快贴
+**English** · [中文](README-en.md) · [한국어](README-ko.md)
 
-> 跨设备临时文本 & 图片快传 PWA。免下载、免登录、扫码即用。部署在 GitHub Pages。
+---
 
-## ✨ 特性
+# QuickPaste · Cross-Device Instant Transfer
 
-- 🚀 **零账号** — 打开页面，输入房间号或扫码即用
-- 🌐 **真·跨平台** — iOS / Android / Windows / macOS / Linux 浏览器互传
-- 📷 **文本 + 图片 + 视频** — 文字秒到，图片/视频支持压缩或原图发送
-- ⚡ **P2P 直连** — WebRTC DataChannel 传输，内容不过任何服务器
-- 🪶 **免下载** — PWA 可「添加到主屏」，像原生应用一样启动
-- 🔒 **隐私优先** — 房间关闭即清空，无后端记录
-- 🖼 **图片原图无损** — 可切换原图发送模式，保留完整画质
-- 🎬 **视频传输** — 支持发送视频文件，压缩或原图两种模式
+> Scan to use · Instant text, image & video transfer across devices · P2P direct via WebRTC · No login · Deployed on GitHub Pages.
 
-## 🌏 多语言
+## ✨ Features
 
-支持 **English**（默认）、**中文**、**한국어** 三个语言版本，页面顶部语言栏随时切换。
+- 🚀 **Zero account** — Open the page, enter room ID or scan QR code to start
+- 🌐 **True cross-platform** — iOS / Android / Windows / macOS / Linux browsers all work together
+- 📷 **Text, images & video** — Instant delivery; lossless original-quality mode available
+- ⚡ **P2P direct transfer** — WebRTC DataChannel, content never touches any server
+- 🪶 **No download** — PWA installable to home screen, runs like a native app
+- 🔒 **Privacy first** — Room closes, everything clears; no backend logs
+- 🌐 **Cross-Platform Transfer** — Any device with a browser works; iOS, Android, Windows, macOS, Linux, no app required
+- 🔐 **Privacy Transfer** — End-to-end encrypted, no logs, no server storage. Your content stays between your devices
+- 🕐 **Temporary Transfer** — Data exists only during the session. Close the room and everything is gone — nothing persisted anywhere
+- 🖼 **Lossless image transfer** — Toggle to send original-quality images, no compression
+- 🎬 **Video transfer** — Send video files; choose between compressed or lossless original quality
 
-| URL | 语言 |
-|-----|------|
-| `/` | English（默认） |
+## 🌏 Languages
+
+Supports **English** (default), **中文**, **한국어** — switch anytime via the top language bar.
+
+| URL | Language |
+|-----|----------|
+| `/` | English (default) |
 | `/zh/` | 中文 |
 | `/ko/` | 한국어 |
+| [`README.md`](README.md) · [`README-en.md`](README-en.md) · [`README-ko.md`](README-ko.md) | Docs in all three languages |
 
-## 🧬 技术栈
+## 🧬 Tech Stack
 
-| 角色 | 方案 |
+| Role | Solution |
 | --- | --- |
-| 前端 | 纯 HTML + CSS + 原生 JS（无构建步骤） |
-| P2P 传输 | WebRTC DataChannel |
-| 信令 | PeerJS Cloud（公共 0.peerjs.com） |
-| 二维码 | qrcode-generator |
-| 部署 | GitHub Pages + GitHub Actions |
-| PWA | manifest + Service Worker（离线缓存） |
+| Frontend | Pure HTML + CSS + vanilla JS (no build step) |
+| P2P Transfer | WebRTC DataChannel |
+| Binary chunked transfer | 64 KB chunks for lossless images & video |
+| Signaling | PeerJS Cloud (public 0.peerjs.com) |
+| QR Code | qrcode-generator |
+| Deployment | GitHub Pages + GitHub Actions |
+| PWA | manifest (per language) + Service Worker (offline cache) |
 
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
-PWA_app/
-├── index.html              # 主入口（含 manifest / SW 注册）
-├── style.css               # 样式（移动优先 + 暗色 UI）
-├── app.js                  # 核心逻辑（WebRTC + 房间管理）
-├── manifest.json           # PWA 配置
-├── sw.js                   # Service Worker（离线缓存）
-├── icons/
-│   ├── icon-192.png        # PWA 标准图标
-│   ├── icon-512.png        # PWA 标准图标
-│   ├── icon-maskable-512.png  # 自适应图标
-│   ├── apple-touch-icon.png    # iOS 主屏图标
-│   └── favicon.png         # 浏览器标签图标
+QuickPaste/
+├── index.html              # Main entry (manifest / SW registration)
+├── app.js                  # Core logic (WebRTC + room management + binary transfer)
+├── style.css               # Styles (mobile-first + dark UI, two themes)
+├── manifest.json           # EN PWA manifest
+├── sw.js                   # Service Worker (offline cache)
+├── icons/                  # PWA icons (192/512/maskable/apple/favicon)
 ├── .github/workflows/
-│   └── deploy.yml          # 自动部署到 GitHub Pages
-├── .nojekyll               # 禁用 Jekyll（直接提供静态文件）
-└── README.md
+│   └── deploy.yml          # Auto-deploy to GitHub Pages
+├── .nojekyll               # Disable Jekyll (serve static files directly)
+├── README.md               # This file — English (default)
+├── README-en.md            # 中文文档
+├── README-ko.md            # 한국어 문서
+├── zh/                     # Chinese version (index.html, app.js, manifest, sw, icons, tutorial)
+└── ko/                     # Korean version (index.html, app.js, manifest, sw, icons, tutorial)
 ```
 
-## 🚀 部署到 GitHub Pages
+## 🚀 Deploy to GitHub Pages
 
-### 方式一：网页操作（推荐新手）
+### Option 1: Web UI (recommended for beginners)
 
-1. 在 GitHub 上创建一个新仓库（比如 `quickpaste`）
-2. 把本目录的所有文件 push 到 `main` 分支
-3. 进入仓库 **Settings → Pages**
-4. Source 选择 **GitHub Actions**
-5. 等 1-2 分钟，自动部署完成，访问 `https://<你的用户名>.github.io/quickpaste/`
+1. Create a new repository on GitHub (e.g., `quickpaste`)
+2. Push all files from this directory to the `main` branch
+3. Go to repository **Settings → Pages**
+4. Source: select **GitHub Actions**
+5. Wait 1–2 minutes for auto-deployment, then visit `https://<your-username>.github.io/quickpaste/`
 
-### 方式二：Git 命令行
+### Option 2: Git CLI
 
 ```bash
-# 1. 初始化并提交
-cd PWA_app
+# 1. Initialize and commit
+cd QuickPaste
 git init
 git add .
 git commit -m "feat: initial quickpaste PWA"
 
-# 2. 关联远程仓库（替换成你的）
-git remote add origin https://github.com/<你的用户名>/quickpaste.git
+# 2. Link remote repository (replace with your own)
+git remote add origin https://github.com/<your-username>/quickpaste.git
 git branch -M main
 git push -u origin main
 
-# 3. GitHub Actions 会自动构建并部署
+# 3. GitHub Actions will build and deploy automatically
 ```
 
-### 启用 PWA 安装提示
+### Enable PWA install prompt
 
-部署后用 Chrome / Edge / Safari 打开页面，浏览器地址栏会出现「安装」图标，点击「安装」即可添加到桌面 / 主屏幕。
+After deployment, open the page in Chrome / Edge / Safari — the address bar will show an "Install" icon. Click it to add to home screen / desktop.
 
-- **iOS Safari**：点击底部分享按钮 → 「添加到主屏幕」
-- **Android Chrome**：地址栏右侧会出现「安装应用」按钮
+- **iOS Safari**: Tap the share button at the bottom → "Add to Home Screen"
+- **Android Chrome**: "Install app" button appears on the right of the address bar
+- **Long-press the app icon** → Quick shortcut to `Create a QuickPaste room`
 
-## 🎯 使用流程
+## 🎯 How to Use
 
-### 创建设备（Host）
+### Create a room (Host)
 
-1. 打开页面 → 点击「**创建快贴房间**」
-2. 页面显示 6 位房间号 + 二维码
-3. 把二维码展示给其他设备扫码
+1. Open the page → tap **"Create a room"**
+2. The page shows a 6-character room ID + QR code
+3. Display the QR code for other devices to scan
 
-### 其他设备（Guest）
+### Join from another device (Guest)
 
-**方式 A：扫码**
-- 直接用相机扫描 Host 的二维码，自动打开并加入房间
+**Method A: Scan QR code**
+- Use the device camera to scan the Host's QR code — it opens the page and joins automatically
 
-**方式 B：手动输入**
-- 打开同一页面 → 点击「**输入房间号加入**」→ 输入 6 位房间号
+**Method B: Manual entry**
+- Open the same page → tap **"Scan or enter room ID"** → type the 6-character room ID
 
-**方式 C：分享链接**
-- Host 点击「复制分享链接」→ 把链接发给其他设备 → 直接打开
+**Method C: Share link**
+- Host taps "Copy share link" → send to other devices → they open the link directly
 
-### 互传内容
+### Transfer content
 
-- 文本：输入框输入 → 回车 / 点「发送」
-- 图片：点击 🖼 选图 / **直接粘贴**（Ctrl+V）/ **拖拽**到页面
-- 所有设备实时收到，毫秒级延迟
+- **Text**: Type in the input field → press Enter or tap Send
+- **Images** (compressed / lossless): Tap the image button / **paste directly** (Ctrl+V) / **drag & drop** onto the page
+  - Click the **quality button** (top-right in room) to toggle between compressed (~500KB) and original-quality lossless mode
+- **Video** (compressed / lossless): Tap the video button to send video files — same quality toggle applies
+- All connected devices receive content instantly with millisecond-level latency
 
-## 🔧 进阶配置
+## 🔧 Advanced Configuration
 
-### 自建信令服务器（可选）
+### Custom signaling server (optional)
 
-默认使用 `0.peerjs.com` 公共信令。如果你想用私有信令（比如避免公共服务器限速）：
+By default QuickPaste uses the public `0.peerjs.com` signaling server. To use a private signaling server (e.g., to avoid public server rate limits):
 
-1. 部署一个 [PeerJS Server](https://github.com/peers/peerjs-server)（Docker 一行起）
-2. 打开页面右上角「自定义信令服务器（可选）」折叠面板
-3. 填入你的信令服务器地址和 API Key → 保存
-4. 下次创建 / 加入房间时生效
+1. Deploy a [PeerJS Server](https://github.com/peers/peerjs-server) (one Docker command to start)
+2. Open the page, expand the "Custom signaling server (optional)" panel (top right)
+3. Enter your signaling server address and API Key → Save
+4. Takes effect next time you create or join a room
 
-### 自定义房间号规则
+### Custom room ID rules
 
-编辑 `app.js` 里的 `ROOM_ALPHABET` 常量即可（默认去掉了容易混淆的 `0/1/I/L/O`）。
+Edit the `ROOM_ALPHABET` constant in `app.js` to customize allowed characters (default removes easily confused `0/1/I/L/O`).
 
-### 替换图标
+### Replace icons
 
-修改 `icons/generate.py` 里的颜色和图案，重新运行：
+Edit colors and patterns in `icons/generate.py`, then run:
 
 ```bash
 python icons/generate.py
 ```
 
-或者直接替换 `icons/icon-192.png` / `icon-512.png` 为你自己的图片。
+Or replace `icons/icon-192.png` / `icon-512.png` directly with your own images.
 
-## 🧪 本地测试
+## 🧪 Local Testing
 
-因为 PWA 的一些特性（如 Service Worker）只在 HTTPS 或 `localhost` 下生效，本地测试需要起一个静态服务器：
+Some PWA features (like Service Worker) only work under HTTPS or `localhost`. To test locally:
 
 ```bash
 # Python 3
 python -m http.server 8080
 
-# 或 Node.js
+# or Node.js
 npx serve .
 ```
 
-然后浏览器打开 `http://localhost:8080`。
+Then open `http://localhost:8080` in your browser.
 
-要测试 P2P 互传：开两个浏览器窗口（或一个普通窗口 + 一个无痕窗口），一个创建房间，另一个用房间号加入。
+To test P2P transfer: open two browser windows (or one regular + one incognito), one creates a room, the other joins with the room ID.
 
-## 📝 浏览器兼容性
+## 📝 Browser Compatibility
 
-| 浏览器 | 最低版本 | 备注 |
+| Browser | Min Version | Notes |
 | --- | --- | --- |
-| iOS Safari | 11.3+ | WebRTC + PWA 完整支持 |
-| Android Chrome | 80+ | 全部功能 |
-| macOS Chrome / Edge | 80+ | 全部功能 |
-| Windows Chrome / Edge | 80+ | 全部功能 |
-| Firefox | 78+ | 全部功能 |
+| iOS Safari | 11.3+ | Full WebRTC + PWA support |
+| Android Chrome | 80+ | All features |
+| macOS Chrome / Edge | 80+ | All features |
+| Windows Chrome / Edge | 80+ | All features |
+| Firefox | 78+ | All features |
 
 ## 📄 License
 
