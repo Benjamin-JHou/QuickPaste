@@ -473,6 +473,42 @@
     toast('Config saved (takes effect next room)');
   });
 
+  // ── Theme switcher ──
+  const themeBtn = $('themeBtn');
+  const themeIconBlue  = $('themeIconBlue');
+  const themeIconPink  = $('themeIconPink');
+  const THEME_KEY = 'qp:theme';
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(THEME_KEY, theme);
+    if (theme === 'pink') {
+      themeIconBlue.style.display  = 'none';
+      themeIconPink.style.display = 'block';
+    } else {
+      themeIconBlue.style.display  = 'block';
+      themeIconPink.style.display = 'none';
+    }
+  }
+
+  // Restore saved theme on load
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme) applyTheme(savedTheme);
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      applyTheme(current === 'pink' ? '' : 'pink');
+    });
+  }
+
+  savePeerConfig.addEventListener('click', () => {
+    const v = customPeerHost.value.trim();
+    const k = customPeerKey.value.trim();
+    saveConfig({ host: v || undefined, key: k || undefined });
+    toast('Config saved (takes effect next room)');
+  });
+
   // Service Worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {

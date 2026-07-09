@@ -473,6 +473,34 @@
     toast('저장됨 (다음 방부터 적용)');
   });
 
+  // ── Theme switcher ──
+  const themeBtn = $('themeBtn');
+  const themeIconBlue  = $('themeIconBlue');
+  const themeIconPink  = $('themeIconPink');
+  const THEME_KEY = 'qp:theme';
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(THEME_KEY, theme);
+    if (theme === 'pink') {
+      themeIconBlue.style.display  = 'none';
+      themeIconPink.style.display = 'block';
+    } else {
+      themeIconBlue.style.display  = 'block';
+      themeIconPink.style.display = 'none';
+    }
+  }
+
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme) applyTheme(savedTheme);
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      applyTheme(current === 'pink' ? '' : 'pink');
+    });
+  }
+
   // Service Worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {

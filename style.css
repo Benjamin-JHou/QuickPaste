@@ -3,7 +3,7 @@
    Aesthetic: Deep space glassmorphism + electric violet accents
    ============================================================ */
 
-/* ── Tokens ── */
+/* ── Tokens (Deep Blue / Default) ── */
 :root {
   --bg-base:       #050816;
   --bg-surface:    rgba(255,255,255,0.04);
@@ -11,10 +11,10 @@
   --border:        rgba(255,255,255,0.08);
   --border-bright: rgba(255,255,255,0.14);
 
-  --violet:        #A78BFA;
-  --violet-light:  #C4B5FD;
-  --cyan:          #22D3EE;
-  --cyan-light:    #67E8F9;
+  --accent:        #A78BFA;
+  --accent-light:  #C4B5FD;
+  --accent2:       #22D3EE;
+  --accent2-light: #67E8F9;
 
   --grad-primary:  linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%);
   --grad-glow:     radial-gradient(ellipse at center, rgba(167,139,250,0.25) 0%, transparent 70%);
@@ -32,14 +32,26 @@
   --shadow-sm:  0 2px 8px rgba(0,0,0,0.3);
   --shadow-md:  0 8px 24px rgba(0,0,0,0.4);
   --shadow-lg:  0 16px 48px rgba(0,0,0,0.5);
-  --shadow-glow-v: 0 0 40px rgba(167,139,250,0.2);
-  --shadow-glow-c: 0 0 40px rgba(34,211,238,0.15);
+  --shadow-glow: 0 0 40px rgba(167,139,250,0.2);
+  --shadow-glow2: 0 0 40px rgba(34,211,238,0.15);
 
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Pink Theme ── */
+[data-theme="pink"] {
+  --accent:        #F472B6;
+  --accent-light:  #FBCFE8;
+  --accent2:       #FB923C;
+  --accent2-light: #FED7AA;
+  --grad-primary:  linear-gradient(135deg, #F472B6 0%, #FB923C 100%);
+  --grad-glow:     radial-gradient(ellipse at center, rgba(244,114,182,0.25) 0%, transparent 70%);
+  --shadow-glow:  0 0 40px rgba(244,114,182,0.25);
+  --shadow-glow2: 0 0 40px rgba(251,146,60,0.2);
 }
 
 /* ── Language nav (EN root only) ── */
@@ -76,6 +88,33 @@
   color: var(--text-primary);
   border: 1px solid var(--border-bright);
 }
+
+/* ── Theme switcher ── */
+.theme-btn {
+  position: absolute;
+  top: calc(var(--safe-top) + 12px);
+  right: 120px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.theme-btn:hover {
+  background: var(--bg-elevated);
+  color: var(--accent);
+  border-color: var(--border-bright);
+}
+[data-theme="pink"] .theme-btn { color: var(--accent2); }
 
 /* ── Reset ── */
 *, *::before, *::after {
@@ -138,12 +177,20 @@ img    { display: block; max-width: 100%; }
   top: -200px; left: -150px;
   background: radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 70%);
   animation-delay: 0s;
+  transition: background 0.4s;
 }
 .bg-orb--cyan {
   width: 400px; height: 400px;
   bottom: -150px; right: -100px;
   background: radial-gradient(circle, rgba(34,211,238,0.12) 0%, transparent 70%);
   animation-delay: -10s;
+  transition: background 0.4s;
+}
+[data-theme="pink"] .bg-orb--purple {
+  background: radial-gradient(circle, rgba(244,114,182,0.22) 0%, transparent 70%);
+}
+[data-theme="pink"] .bg-orb--cyan {
+  background: radial-gradient(circle, rgba(251,146,60,0.15) 0%, transparent 70%);
 }
 .bg-orb.small { transform: scale(0.4); opacity: 0.6; }
 .bg-grid {
@@ -325,7 +372,7 @@ img    { display: block; max-width: 100%; }
 
 .btn:active { transform: scale(0.97); }
 .btn:focus-visible {
-  outline: 2px solid var(--violet);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -336,7 +383,10 @@ img    { display: block; max-width: 100%; }
 }
 
 .btn--primary:hover {
-  box-shadow: var(--shadow-glow-v), 0 12px 32px rgba(167,139,250,0.3);
+  box-shadow: var(--shadow-glow), 0 12px 32px rgba(167,139,250,0.3);
+}
+[data-theme="pink"] .btn--primary:hover {
+  box-shadow: var(--shadow-glow), 0 12px 32px rgba(244,114,182,0.3);
 }
 
 .btn--ghost {
@@ -418,7 +468,7 @@ img    { display: block; max-width: 100%; }
 
 .config-toggle::-webkit-details-marker { display: none; }
 .config-toggle:hover { color: var(--text-secondary); }
-.config-panel[open] .config-toggle { color: var(--cyan); }
+.config-panel[open] .config-toggle { color: var(--accent2); }
 
 .config-body {
   padding: 0 16px 16px;
@@ -501,7 +551,7 @@ img    { display: block; max-width: 100%; }
 
 .icon-btn:active { transform: scale(0.93); }
 .icon-btn:focus-visible {
-  outline: 2px solid var(--violet);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -601,7 +651,7 @@ img    { display: block; max-width: 100%; }
   border-radius: var(--radius-full);
   font-size: 11px;
   font-weight: 700;
-  color: var(--cyan);
+  color: var(--accent2);
   text-align: center;
 }
 
@@ -645,7 +695,7 @@ img    { display: block; max-width: 100%; }
   color: var(--text-primary);
 }
 .peer-chip.you .dot {
-  background: var(--violet);
+  background: var(--accent);
   box-shadow: 0 0 6px rgba(167,139,250,0.5);
 }
 
@@ -814,12 +864,12 @@ img    { display: block; max-width: 100%; }
 
 .send-btn:hover {
   transform: scale(1.08);
-  box-shadow: var(--shadow-glow-v), 0 6px 20px rgba(167,139,250,0.35);
+  box-shadow: var(--shadow-glow), 0 6px 20px rgba(167,139,250,0.35);
 }
 
 .send-btn:active { transform: scale(0.93); }
 .send-btn:focus-visible {
-  outline: 2px solid var(--violet);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -887,5 +937,59 @@ img    { display: block; max-width: 100%; }
 /* ── Selection ── */
 ::selection {
   background: rgba(167,139,250,0.3);
+  color: #fff;
+}
+
+/* ── Pink theme — interactive state overrides ── */
+[data-theme="pink"] .pill {
+  background: rgba(244,114,182,0.1);
+  border-color: rgba(244,114,182,0.25);
+  color: var(--accent);
+}
+[data-theme="pink"] .pill svg { stroke: var(--accent2); }
+[data-theme="pink"] .btn--primary {
+  background: linear-gradient(135deg, #F472B6 0%, #FB923C 100%);
+}
+[data-theme="pink"] .btn--primary:hover {
+  box-shadow: var(--shadow-glow), 0 12px 32px rgba(244,114,182,0.35);
+}
+[data-theme="pink"] .btn--ghost:hover {
+  border-color: rgba(244,114,182,0.4);
+  color: var(--accent-light);
+}
+[data-theme="pink"] .input-field:focus {
+  border-color: rgba(244,114,182,0.5);
+  box-shadow: 0 0 0 3px rgba(244,114,182,0.15);
+}
+[data-theme="pink"] .config-panel[open] .config-toggle {
+  color: var(--accent2);
+}
+[data-theme="pink"] .room-id {
+  background: rgba(244,114,182,0.1);
+  border-color: rgba(244,114,182,0.2);
+  color: var(--accent);
+}
+[data-theme="pink"] .peer-chip.online {
+  background: rgba(244,114,182,0.1);
+  border-color: rgba(244,114,182,0.25);
+  color: var(--accent);
+}
+[data-theme="pink"] .peer-chip.online svg { stroke: var(--accent); }
+[data-theme="pink"] .peer-badge {
+  background: rgba(251,146,60,0.15);
+  border-color: rgba(251,146,60,0.25);
+  color: var(--accent2);
+}
+[data-theme="pink"] .msg-bubble.out {
+  background: linear-gradient(135deg, rgba(244,114,182,0.25) 0%, rgba(251,146,60,0.15) 100%);
+  border-color: rgba(244,114,182,0.2);
+}
+[data-theme="pink"] .msg-bubble.out .msg-text { color: var(--text-primary); }
+[data-theme="pink"] .send-btn:hover {
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(244,114,182,0.15);
+}
+[data-theme="pink"] ::selection {
+  background: rgba(244,114,182,0.35);
   color: #fff;
 }
