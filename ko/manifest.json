@@ -1,0 +1,43 @@
+{
+  "name": "快貼 · 기기 간 임시 전송",
+  "short_name": "快貼",
+  "description": "Scan to use · Cross-device text & image transfer · No login · P2P direct transfer",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#050816",
+  "theme_color": "#050816",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "빠른 전송 방 만들기",
+      "short_name": "방 만들기",
+      "description": "새로운 빠른 전송 방을 즉시 생성합니다",
+      "url": "./?action=create"
+    }
+  ],
+  "prefer_related_applications": false
+}
