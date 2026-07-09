@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050816" />
+  <meta name="description" content="QuickPaste Tutorial — How to use cross-device instant transfer" />
+  <title>How to Use — QuickPaste</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050816;
+      --surface: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --violet: #A78BFA;
+      --cyan: #22D3EE;
+      --text: #F1F5F9;
+      --text2: #94A3B8;
+      --text3: #475569;
+      --grad: linear-gradient(135deg, #A78BFA 0%, #22D3EE 100%);
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+    a { color: var(--violet); text-decoration: none; }
+    a:hover { color: var(--cyan); }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 80px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(167,139,250,0.1);
+      border: 1px solid rgba(167,139,250,0.25);
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--violet);
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 800;
+      line-height: 1.15;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+    .hero p {
+      font-size: 17px;
+      color: var(--text2);
+      max-width: 520px;
+      margin: 0 auto 28px;
+    }
+    .hero-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .hero-links a:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--grad);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(167,139,250,0.3);
+    }
+    .btn-ghost {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-ghost:hover { border-color: rgba(167,139,250,0.3); color: var(--violet); }
+
+    /* Nav */
+    .lang-nav {
+      position: fixed;
+      top: 16px; right: 16px;
+      z-index: 100;
+      display: flex;
+      gap: 4px;
+      background: rgba(5,8,22,0.8);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px;
+      backdrop-filter: blur(16px);
+    }
+    .lang-nav a {
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text3);
+      transition: background 0.15s, color 0.15s;
+    }
+    .lang-nav a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+    .lang-nav a.active { background: rgba(255,255,255,0.06); color: var(--text); }
+
+    /* Container */
+    .container { max-width: 760px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* Section */
+    .section { margin-bottom: 64px; }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--text2);
+      margin-bottom: 28px;
+    }
+
+    /* Step cards */
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 24px;
+      align-items: flex-start;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      background: var(--grad);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(167,139,250,0.3);
+    }
+    .step-body { flex: 1; padding-top: 6px; }
+    .step-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .step-desc { font-size: 14px; color: var(--text2); line-height: 1.6; }
+
+    /* Mockup phone */
+    .phone-mockup {
+      background: #1a1d2e;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 16px;
+      margin: 20px auto;
+      max-width: 240px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    }
+    .phone-mockup .screen {
+      background: #0a0e1a;
+      border-radius: 18px;
+      overflow: hidden;
+      min-height: 320px;
+    }
+    .phone-bar {
+      background: rgba(255,255,255,0.04);
+      padding: 12px 14px 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .phone-bar-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+    .phone-bar-id { flex: 1; text-align: center; font-size: 18px; font-weight: 700; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: 3px; }
+    .phone-content { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .phone-qr { background: #fff; padding: 10px; border-radius: 10px; text-align: center; font-size: 10px; color: #999; margin-bottom: 8px; }
+    .phone-msg { padding: 8px 12px; border-radius: 12px; font-size: 13px; line-height: 1.5; }
+    .phone-msg.out { background: rgba(167,139,250,0.15); border: 1px solid rgba(167,139,250,0.2); align-self: flex-start; max-width: 85%; }
+    .phone-msg.in { background: var(--grad); color: #fff; align-self: flex-end; max-width: 85%; }
+    .phone-composer {
+      display: flex; gap: 6px; align-items: center;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 999px;
+      margin-top: 4px;
+    }
+    .phone-composer .input { flex: 1; background: rgba(255,255,255,0.06); border-radius: 999px; height: 34px; }
+    .phone-composer .send { width: 34px; height: 34px; background: var(--grad); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+    /* Feature cards */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .feature-card:hover { border-color: rgba(167,139,250,0.3); transform: translateY(-2px); }
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .feature-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .feature-desc { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+    /* Install guide */
+    .install-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .install-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .install-card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .install-card ol {
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .install-card li { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* CTA block */
+    .cta-block {
+      text-align: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-block::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at top, rgba(167,139,250,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-block h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .cta-block p { color: var(--text2); margin-bottom: 24px; font-size: 15px; }
+    .cta-block .hero-links { justify-content: center; }
+
+    /* Tip box */
+    .tip-box {
+      background: rgba(34,211,238,0.06);
+      border: 1px solid rgba(34,211,238,0.15);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      font-size: 13px;
+      color: var(--text2);
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .tip-box strong { color: var(--cyan); }
+
+    @media (max-width: 600px) {
+      .install-cards { grid-template-columns: 1fr; }
+      .hero { padding: 60px 20px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Lang nav -->
+  <nav class="lang-nav" aria-label="Language">
+    <a href="../tutorial/" class="active">EN</a>
+    <a href="../../zh/tutorial/">中文</a>
+    <a href="../../ko/tutorial/">한국어</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+      Step-by-step guide
+    </div>
+    <h1>Send anything,<br>anywhere, instantly</h1>
+    <p>No account, no app store, no cables. Just open the page and share with any device in seconds.</p>
+    <div class="hero-links">
+      <a href="../" class="btn-primary">Open QuickPaste →</a>
+      <a href="../#create" class="btn-ghost">Create a room</a>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- How it works -->
+    <section class="section">
+      <h2 class="section-title">How QuickPaste works</h2>
+      <p class="section-sub">Three steps to share across all your devices — no matter if it's iPhone, Android, Windows, or Mac.</p>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Create a room</div>
+          <div class="step-desc">Open QuickPaste in any browser. Tap <strong>Create a room</strong>. A 6-character room code is generated — or share the QR code directly.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Open on another device</div>
+          <div class="step-desc">On your other phone/tablet/computer, open the same URL or scan the QR code. Tap <strong>Scan or enter room ID</strong>. You join the same room instantly.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Start sharing</div>
+          <div class="step-desc">Type text or paste images — they're sent directly to all connected devices in real time via P2P. No uploads, no servers touching your data.</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- Visual demo -->
+    <section class="section">
+      <h2 class="section-title">What it looks like</h2>
+      <p class="section-sub">Two phones, one room, instant delivery.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; margin-top:20px;">
+        <!-- Host phone -->
+        <div class="phone-mockup">
+          <div class="screen">
+            <div class="phone-bar">
+              <div class="phone-bar-dot"></div>
+              <div class="phone-bar-id">XK7M2P</div>
+              <div class="phone-bar-dot"></div>
+            </div>
+            <div class="phone-content">
+              <div class="phone-qr">QR code here</div>
+              <div class="phone-msg out">Hey, sending you the design doc</div>
+              <div class="phone-msg out">Check the image below 👇</div>
+              <div class="phone-msg in">Got it! 🔥</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Guest phone -->
+        <div class="phone-mockup">
+          <div class="screen">
+            <div class="phone-bar">
+              <div class="phone-bar-dot"></div>
+              <div class="phone-bar-id">XK7M2P</div>
+              <div class="phone-bar-dot"></div>
+            </div>
+            <div class="phone-content">
+              <div class="phone-qr">Joined room</div>
+              <div class="phone-msg out">Hey, sending you the design doc</div>
+              <div class="phone-msg out">Check the image below 👇</div>
+              <div class="phone-msg in">Got it! 🔥</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Tip:</strong> Devices stay connected as long as the browser tab is open. Close the tab = instant disconnect. No trace left behind.
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- Share methods -->
+    <section class="section">
+      <h2 class="section-title">Three ways to join a room</h2>
+      <p class="section-sub">Pick whichever is most convenient for your situation.</p>
+
+      <div class="step">
+        <div class="step-num">A</div>
+        <div class="step-body">
+          <div class="step-title">Scan the QR code</div>
+          <div class="step-desc">Point your camera at the host's QR code. Most phone cameras can read QR codes directly — just point and tap the notification.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">B</div>
+        <div class="step-body">
+          <div class="step-title">Share the link</div>
+          <div class="step-desc">Tap <strong>Copy share link</strong> on the host device. Send it via WeChat, email, AirDrop, or any app. Opening the link opens QuickPaste and joins the room automatically.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">C</div>
+        <div class="step-body">
+          <div class="step-title">Type the room code</div>
+          <div class="step-desc">On another device, tap <strong>Scan or enter room ID</strong> and type the 6-character code shown on the host's screen.</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- Install as app -->
+    <section class="section">
+      <h2 class="section-title">Install as an app</h2>
+      <p class="section-sub">Add to your home screen — opens like a native app, works offline for the UI.</p>
+
+      <div class="install-cards">
+        <div class="install-card">
+          <h3>📱 iPhone / iPad (Safari)</h3>
+          <ol>
+            <li>Open QuickPaste in Safari</li>
+            <li>Tap the <strong>Share</strong> button (□↑ arrow)</li>
+            <li>Scroll down, tap <strong>"Add to Home Screen"</strong></li>
+            <li>Tap <strong>Add</strong> — done!</li>
+          </ol>
+        </div>
+        <div class="install-card">
+          <h3>🤖 Android (Chrome)</h3>
+          <ol>
+            <li>Open QuickPaste in Chrome</li>
+            <li>Tap the <strong>install prompt</strong> in the address bar, or tap the menu ⋮ → <strong>Install app</strong></li>
+            <li>Confirm — it appears as an app icon</li>
+          </ol>
+        </div>
+        <div class="install-card">
+          <h3>💻 Windows / Mac (Chrome/Edge)</h3>
+          <ol>
+            <li>Open QuickPaste in Chrome or Edge</li>
+            <li>Click the <strong>install icon</strong> in the address bar</li>
+            <li>QuickPaste opens in its own window, no browser chrome</li>
+          </ol>
+        </div>
+        <div class="install-card">
+          <h3>🖥 Desktop (Firefox/Safari)</h3>
+          <ol>
+            <li>Open QuickPaste in your browser</li>
+            <li>Bookmarks bar shortcut works great too</li>
+            <li>The PWA runs as a tab, all features work normally</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- What you can send -->
+    <section class="section">
+      <h2 class="section-title">What can you send?</h2>
+      <p class="section-sub">Anything that fits in a browser tab.</p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <div class="feature-title">Text & Messages</div>
+          <div class="feature-desc">Type and send instantly. Great for URLs, addresses, phone numbers, quick notes.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🖼️</div>
+          <div class="feature-title">Images & Photos</div>
+          <div class="feature-desc">Send images from your gallery or paste directly (Ctrl+V / ⌘V). Auto-compressed to ~500KB.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📋</div>
+          <div class="feature-title">Clipboard Paste</div>
+          <div class="feature-desc">Copy an image on one device, press Ctrl+V on another — it sends automatically. No buttons needed.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤸</div>
+          <div class="feature-title">Multiple Devices</div>
+          <div class="feature-desc">Any number of devices can join the same room. Everyone sees everything in real time.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <div class="feature-title">P2P Encrypted</div>
+          <div class="feature-desc">Data travels directly between devices. Not even our servers can read it.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-title">No account needed</div>
+          <div class="feature-desc">Open the page and go. No sign-up, no phone number, no email.</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- FAQ -->
+    <section class="section">
+      <h2 class="section-title">FAQ</h2>
+      <p class="section-sub">Common questions, direct answers.</p>
+
+      <div class="step">
+        <div class="step-num" style="background:rgba(255,255,255,0.1)">Q</div>
+        <div class="step-body">
+          <div class="step-title">Does it work without internet?</div>
+          <div class="step-desc">Both devices need an internet connection to establish the P2P connection initially. Once connected, data flows directly between devices. Works over mobile data too.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:rgba(255,255,255,0.1)">Q</div>
+        <div class="step-body">
+          <div class="step-title">Is my data stored anywhere?</div>
+          <div class="step-desc">No. QuickPaste has no database, no server-side storage. Messages only exist in browser memory. Close the tab = gone forever.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:rgba(255,255,255,0.1)">Q</div>
+        <div class="step-body">
+          <div class="step-title">What's the room code format?</div>
+          <div class="step-desc">6 characters, uppercase letters and numbers (0, 1, I, L, O excluded to avoid confusion). Each room code is randomly generated and unique.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:rgba(255,255,255,0.1)">Q</div>
+        <div class="step-body">
+          <div class="step-title">How many devices can join one room?</div>
+          <div class="step-desc">Unlimited. All devices connect in a mesh network — everyone sees everything sent to the room.</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- CTA -->
+    <div class="cta-block">
+      <h2>Ready to try it?</h2>
+      <p>No download, no account, no wait. Just open and share.</p>
+      <div class="hero-links">
+        <a href="../" class="btn-primary" style="font-size:15px; padding:14px 28px;">Start using QuickPaste →</a>
+      </div>
+    </div>
+
+  </div><!-- .container -->
+
+</body>
+</html>
