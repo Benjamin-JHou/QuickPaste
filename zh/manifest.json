@@ -1,14 +1,14 @@
 {
-  "name": "快贴 · 跨设备临时互传",
+  "name": "QuickPaste · 快贴",
   "short_name": "快贴",
-  "description": "Scan to use · Cross-device text & image transfer · No login · P2P direct transfer",
+  "description": "扫码即用 · 跨设备文本/图片/视频传输 · 原图无损 · 免登录 · P2P直连",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#050816",
   "theme_color": "#050816",
-  "lang": "en",
+  "lang": "zh",
   "dir": "ltr",
   "categories": ["productivity", "utilities"],
   "icons": [
@@ -35,8 +35,8 @@
     {
       "name": "创建快贴房间",
       "short_name": "创建房间",
-      "description": "立刻创建一个新的快贴房间",
-      "url": "./?action=create"
+      "description": "立即创建一个快贴房间",
+      "url": "./#create"
     }
   ],
   "prefer_related_applications": false

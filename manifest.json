@@ -1,7 +1,7 @@
 {
   "name": "QuickPaste · Cross-Device Instant Transfer",
   "short_name": "QuickPaste",
-  "description": "Scan to use · Cross-device text & image transfer · No login · P2P direct transfer",
+  "description": "Scan to use · Cross-device text, image & video transfer · Original quality mode · No login · P2P direct transfer",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -36,7 +36,7 @@
       "name": "Create a QuickPaste room",
       "short_name": "Create room",
       "description": "Create a new QuickPaste room instantly",
-      "url": "./?action=create"
+      "url": "./#create"
     }
   ],
   "prefer_related_applications": false

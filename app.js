@@ -502,6 +502,15 @@
     STATE.deviceId = genDeviceId();
     enterRoom('guest', id);
   }
+  function handleHashShortcut() {
+    if (location.hash === '#create' || location.hash === '#create=1') {
+      location.hash = '';
+      if (!STATE.peer) {
+        STATE.deviceId = genDeviceId();
+        enterRoom('host', genRoomId());
+      }
+    }
+  }
 
   // ====== Event binding ======
   createBtn.addEventListener('click', () => {
@@ -646,7 +655,9 @@
   }
 
   window.addEventListener('hashchange', () => {
+    handleHashShortcut();
     if (parseHashRoom() && !STATE.peer) joinFromHash();
   });
+  handleHashShortcut();
   if (parseHashRoom()) { STATE.deviceId = genDeviceId(); joinFromHash(); }
 })();
