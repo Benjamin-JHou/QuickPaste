@@ -618,13 +618,9 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem(THEME_KEY, theme);
-    if (theme === 'pink') {
-      themeIconBlue.style.display  = 'none';
-      themeIconPink.style.display = 'block';
-    } else {
-      themeIconBlue.style.display  = 'block';
-      themeIconPink.style.display = 'none';
-    }
+    const isPink = theme === 'pink';
+    if (themeIconBlue) themeIconBlue.style.display  = isPink ? 'none' : 'block';
+    if (themeIconPink) themeIconPink.style.display = isPink ? 'block' : 'none';
   }
 
   const savedTheme = localStorage.getItem(THEME_KEY);
@@ -635,6 +631,21 @@
       const current = document.documentElement.getAttribute('data-theme');
       applyTheme(current === 'pink' ? '' : 'pink');
     });
+  }
+
+  // ── Layout: position topbar-tools to the left of .lang-nav ──
+  function positionTopbarTools() {
+    const langNav = document.querySelector('.lang-nav');
+    const tools = $('topbarTools');
+    if (!langNav || !tools) return;
+    const navWidth = langNav.offsetWidth;
+    const gap = 8;
+    document.documentElement.style.setProperty('--tools-right-offset', (navWidth + gap + 16) + 'px');
+  }
+  positionTopbarTools();
+  window.addEventListener('resize', positionTopbarTools);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(positionTopbarTools);
   }
 
   // Service Worker
