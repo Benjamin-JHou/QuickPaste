@@ -1,6 +1,6 @@
 /* ============================================================
- * QuickPaste — EN
- * Cross-device temporary P2P clipboard via WebRTC + PeerJS
+ * QuickPaste — 中文 (zh)
+ * 跨设备临时 P2P 剪贴板，基于 WebRTC + PeerJS
  * ============================================================ */
 (function () {
   'use strict';
@@ -153,7 +153,7 @@
 
     const me = document.createElement('span');
     me.className = 'peer-chip you';
-    me.innerHTML = `<span class="dot"></span>${STATE.deviceId} (me)`;
+    me.innerHTML = `<span class="dot"></span>${STATE.deviceId} (我)`;
     peerListEl.appendChild(me);
 
     for (const p of arr) {
@@ -295,7 +295,7 @@
     if (data.kind === 'hello' || data.kind === 'sync') {
       const p = STATE.peers.get(peerId);
       if (p) { p.name = data.you || p.name; refreshPeerList(); }
-      appendMessage({ type: 'system', text: `${p ? p.name : shortId(peerId)} connected` });
+      appendMessage({ type: 'system', text: `${p ? p.name : shortId(peerId)} 已加入房间` });
       if (data.kind === 'sync' && Array.isArray(data.existing)) {
         for (const id of data.existing) {
           if (!STATE.peers.has(id)) connectTo(id);
@@ -312,7 +312,7 @@
     if (data.kind === 'leave') {
       const p = STATE.peers.get(data.id);
       if (p) {
-        appendMessage({ type: 'system', text: `${p.name} left the room` });
+        appendMessage({ type: 'system', text: `${p.name} 已离开房间` });
         try { p.conn.close(); } catch (_) {}
         STATE.peers.delete(data.id);
         refreshPeerList();

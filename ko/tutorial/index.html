@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#050816" />
-  <meta name="description" content="快貼 사용법 — 기기 간 즉시 전송" />
-  <title>사용법 — 快貼</title>
+  <meta name="description" content="QuickPaste 사용법 — 기기 간 즉시 전송 가이드" />
+  <title>사용법 — QuickPaste</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
@@ -120,7 +120,7 @@
     <h1>어디서든<br>즉시 전송</h1>
     <p>계정 없음, 앱 다운로드 없음, 케이블 없음. 페이지 열기만 하면 수 초 만에 기기 간 공유 완료.</p>
     <div class="hero-links">
-      <a href="../" class="btn-primary">快貼 열기 →</a>
+      <a href="../" class="btn-primary">QuickPaste 열기 →</a>
       <a href="../#create" class="btn-ghost">방 만들기</a>
     </div>
   </section>
@@ -128,14 +128,14 @@
   <div class="container">
 
     <section class="section">
-      <h2 class="section-title">快貼 작동 원리</h2>
+      <h2 class="section-title">QuickPaste 작동 원리</h2>
       <p class="section-sub">세 단계로 크로스 디바이스 전송 — iPhone, 안드로이드, Windows, Mac 상관없이.</p>
 
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-body">
           <div class="step-title">방 만들기</div>
-          <div class="step-desc">임의의 브라우저에서 快貼 열기. <strong>방 만들기</strong> 탭하면 6자리 방 번호 자동 생성 — QR 코드 공유 또는 링크 복사 가능.</div>
+          <div class="step-desc">임의의 브라우저에서 QuickPaste 열기. <strong>방 만들기</strong> 탭하면 6자리 방 번호 자동 생성 — QR 코드 공유 또는 링크 복사 가능.</div>
         </div>
       </div>
 
@@ -143,7 +143,7 @@
         <div class="step-num">2</div>
         <div class="step-body">
           <div class="step-title">다른 기기에서 접속</div>
-          <div class="step-desc">다른 폰/태블릿/PC에서 QR 코드 스캔하거나 6자리 방 번호 입력하면 같은 방에 즉시 접속.</div>
+          <div class="step-desc">다른 폰/태블릿/PC에서 QR 코드를 스캔하거나 6자리 방 번호를 입력하면 같은 방에 즉시 접속합니다.</div>
         </div>
       </div>
 
@@ -210,7 +210,7 @@
         <div class="step-num">A</div>
         <div class="step-body">
           <div class="step-title">QR 코드 스캔</div>
-          <div class="step-desc">호스트 기기 화면의 QR 코드를 카메라로 스캔. 대부분의 스마트폰 카메라가 QR 코드 직접 인식 후 快貼 페이지로 이동.</div>
+          <div class="step-desc">호스트 기기 화면의 QR 코드를 카메라로 스캔. 대부분의 스마트폰 카메라가 QR 코드를 직접 인식한 후 자동으로 QuickPaste 페이지로 이동합니다.</div>
         </div>
       </div>
 
@@ -233,6 +233,43 @@
 
     <hr class="divider" />
 
+    <!-- QR 코드 동작 원리 -->
+    <section class="section">
+      <h2 class="section-title">QR 코드 스캔의 원리</h2>
+      <p class="section-sub">QR 코드에 실제로 무엇이 들어있고, 스캔하면 무슨 일이 일어날까요.</p>
+
+      <div class="install-card" style="margin-bottom:16px">
+        <h3>📦 QR 코드에 들어있는 것</h3>
+        <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-top:8px">
+          방 화면에 표시되는 QR 코드는 단순한 <strong>URL</strong>입니다 — <code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:12px">https://…/index.html#room=ABC234</code> 형태. <code>#room=</code> 뒤의 6자리가 "방 번호"이며, 이것이 QR 코드에 담긴 유일한 데이터입니다. 텍스트나 이미지, 개인 정보는 들어있지 않습니다.
+        </p>
+      </div>
+
+      <div class="install-card" style="margin-bottom:16px">
+        <h3>🔍 휴대폰에서 스캔하는 방법</h3>
+        <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-top:8px">
+          <strong>iOS</strong>는 <strong>카메라</strong>(또는 제어센터의 "코드 스캐너") 앱을 열어 QR에 비추세요. 인식되면 화면 상단에 링크 배너가 나타나며, 탭하면 QuickPaste가 열리며 자동으로 방에 입장합니다.<br><br>
+          <strong>Android</strong>는 <strong>Google Lens</strong>나 기본 카메라 앱으로 스캔하면 됩니다.
+        </p>
+      </div>
+
+      <div class="install-card" style="margin-bottom:16px">
+        <h3>🔐 QR 코드의 프라이버시</h3>
+        <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-top:8px">
+          QR 코드는 단순히 <strong>방 번호</strong>만 노출합니다. 일단 방에 들어서면, 전송되는 모든 데이터는 WebRTC로 <strong>기기간 직접</strong> 흘러가지 어떤 서버도 거치지 않습니다. QR 코드를 본다고 해서 기존 메시지를 훔쳐볼 수 없습니다 — 단지 "입장"만 가능할 뿐입니다.
+        </p>
+      </div>
+
+      <div class="install-card">
+        <h3>📲 카메라나 QR 스캐너가 없으면?</h3>
+        <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-top:8px">
+          위의 <strong>B 방법</strong>(공유 링크 복사)과 <strong>C 방법</strong>(6자리 방 번호 수동 입력)을 사용하시면 됩니다. 카메라 없이도 완전한 기능을 사용할 수 있습니다.
+        </p>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
     <section class="section">
       <h2 class="section-title">앱으로 설치하기</h2>
       <p class="section-sub">홈 화면에 추가하면 네이티브 앱처럼 작동, 앱스토어 불필요.</p>
@@ -241,7 +278,7 @@
         <div class="install-card">
           <h3>📱 iPhone / iPad (Safari)</h3>
           <ol>
-            <li>Safari에서 快貼 열기</li>
+            <li>Safari에서 QuickPaste 열기</li>
             <li>하단 <strong>공유</strong> 버튼 (□↑ 화살표) 탭</li>
             <li>내려서 <strong>"홈 화면에 추가"</strong> 탭</li>
             <li><strong>추가</strong> — 완료!</li>
@@ -250,7 +287,7 @@
         <div class="install-card">
           <h3>🤖 Android (Chrome)</h3>
           <ol>
-            <li>Chrome에서 快貼 열기</li>
+            <li>Chrome에서 QuickPaste 열기</li>
             <li>주소창 오른쪽 <strong>앱 설치</strong> 버튼 탭</li>
             <li>또는 메뉴 ⋮ → <strong>앱 설치</strong></li>
             <li>홈 화면에 아이콘 생성됨</li>
@@ -259,7 +296,7 @@
         <div class="install-card">
           <h3>💻 Windows / Mac (Chrome/Edge)</h3>
           <ol>
-            <li>Chrome 또는 Edge에서 快貼 열기</li>
+            <li>Chrome 또는 Edge에서 QuickPaste 열기</li>
             <li>주소창 오른쪽 <strong>설치 아이콘</strong> 클릭</li>
             <li>독립 창으로 실행 — 브라우저 없이</li>
           </ol>
@@ -267,7 +304,7 @@
         <div class="install-card">
           <h3>🖥️ 데스크톱 (Firefox/Safari)</h3>
           <ol>
-            <li>원하는 브라우저에서 快貼 열기</li>
+            <li>원하는 브라우저에서 QuickPaste 열기</li>
             <li>북마크 바에 추가하면 편리</li>
             <li>탭으로도 모든 기능 정상 작동</li>
           </ol>
@@ -300,7 +337,7 @@
         <div class="feature-card">
           <div class="feature-icon">🤸</div>
           <div class="feature-title">복수 기기 동시</div>
-          <div class="feature-desc">제한 없음. 모든 기기가 mesh 네트워크로 연결 — 방 안所有人都能看到所有内容.</div>
+          <div class="feature-desc">제한 없음. 모든 기기가 mesh 네트워크로 연결 — 방 안 모든 사람이 모든 메시지를 실시간으로 볼 수 있습니다.</div>
         </div>
         <div class="feature-card">
           <div class="feature-icon">🔒</div>
@@ -357,7 +394,7 @@
         <div class="step-num" style="background:rgba(255,255,255,0.1)">Q</div>
         <div class="step-body">
           <div class="step-title">데이터가 저장되나요?</div>
-          <div class="step-desc">저장 안 됨. 快貼은 데이터베이스 없음. 모든 메시지는 브라우저 메모리에만 존재. 탭 닫으면 영구 삭제.</div>
+          <div class="step-desc">저장 안 됨. QuickPaste는 데이터베이스 없음. 모든 메시지는 브라우저 메모리에만 존재. 탭 닫으면 영구 삭제.</div>
         </div>
       </div>
       <div class="step">
@@ -371,7 +408,7 @@
         <div class="step-num" style="background:rgba(255,255,255,0.1)">Q</div>
         <div class="step-body">
           <div class="step-title">한 방에 최대 몇 대?</div>
-          <div class="step-desc">제한 없음. 모든 기기가 mesh 네트워크 연결 — 방 안所有人都能看到所有发送的内容.</div>
+          <div class="step-desc">제한 없음. 모든 기기가 mesh 네트워크로 연결 — 방 안 모든 사람이 모든 전송 내용을 실시간으로 볼 수 있습니다.</div>
         </div>
       </div>
     </section>
@@ -382,7 +419,7 @@
       <h2>사용 시작하기</h2>
       <p>다운로드 불필요, 계정 불필요, 열면 바로 사용.</p>
       <div class="hero-links">
-        <a href="../" class="btn-primary" style="font-size:15px; padding:14px 28px;">快貼 열기 →</a>
+        <a href="../" class="btn-primary" style="font-size:15px; padding:14px 28px;">QuickPaste 열기 →</a>
       </div>
     </div>
 

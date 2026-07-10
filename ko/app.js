@@ -1,6 +1,6 @@
 /* ============================================================
- * QuickPaste — EN
- * Cross-device temporary P2P clipboard via WebRTC + PeerJS
+ * QuickPaste — 한국어 (ko)
+ * WebRTC + PeerJS 기반 기기 간 임시 P2P 클립보드
  * ============================================================ */
 (function () {
   'use strict';
@@ -112,6 +112,7 @@
         video.style.borderRadius = '8px';
         video.style.display = 'block';
         div.appendChild(video);
+      } else {
         const img = document.createElement('img');
         img.src = msg.data;
         img.alt = '이미지';
@@ -152,7 +153,7 @@
 
     const me = document.createElement('span');
     me.className = 'peer-chip you';
-    me.innerHTML = `<span class="dot"></span>${STATE.deviceId} (me)`;
+    me.innerHTML = `<span class="dot"></span>${STATE.deviceId} (나)`;
     peerListEl.appendChild(me);
 
     for (const p of arr) {
@@ -294,7 +295,7 @@
     if (data.kind === 'hello' || data.kind === 'sync') {
       const p = STATE.peers.get(peerId);
       if (p) { p.name = data.you || p.name; refreshPeerList(); }
-      appendMessage({ type: 'system', text: `${p ? p.name : shortId(peerId)} connected` });
+      appendMessage({ type: 'system', text: `${p ? p.name : shortId(peerId)} 님이 연결되었습니다` });
       if (data.kind === 'sync' && Array.isArray(data.existing)) {
         for (const id of data.existing) {
           if (!STATE.peers.has(id)) connectTo(id);
@@ -311,7 +312,7 @@
     if (data.kind === 'leave') {
       const p = STATE.peers.get(data.id);
       if (p) {
-        appendMessage({ type: 'system', text: `${p.name} left the room` });
+        appendMessage({ type: 'system', text: `${p.name} 님이 방을 나갔습니다` });
         try { p.conn.close(); } catch (_) {}
         STATE.peers.delete(data.id);
         refreshPeerList();

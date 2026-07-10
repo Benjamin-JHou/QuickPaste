@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="QuickPaste" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="description" content="QuickPaste — Scan to instantly share text &amp; images across devices. No login, no server storage." />
+  <meta name="description" content="QuickPaste — 扫码即用 · 跨设备文本·图片·视频秒传 · 无需登录 · 无服务器存储" />
   <link rel="manifest" href="./manifest.json" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <link rel="icon" type="image/png" href="icons/icon-192.png" />
@@ -29,14 +29,7 @@
       <div class="bg-orb bg-orb--cyan" aria-hidden="true"></div>
       <div class="bg-grid" aria-hidden="true"></div>
 
-      <!-- Language switcher -->
-      <nav class="lang-nav" aria-label="Language">
-        <a href="../" class="lang-btn" lang="en">EN</a>
-        <a href="./" class="lang-btn active" lang="zh">中文</a>
-        <a href="../ko/" class="lang-btn" lang="ko">한국어</a>
-      </nav>
-
-      <!-- Top right action tools: tutorial link + theme toggle -->
+      <!-- Tutorial link (leftmost in the tools cluster) -->
       <div class="topbar-tools" id="topbarTools">
         <a id="tutorialLink" class="icon-btn" href="../tutorial/" aria-label="使用教程" title="使用教程">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
@@ -47,13 +40,20 @@
         </button>
       </div>
 
+      <!-- Language switcher (rightmost) -->
+      <nav class="lang-nav" aria-label="Language">
+        <a href="../" class="lang-btn" lang="en">EN</a>
+        <a href="./" class="lang-btn active" lang="zh">中文</a>
+        <a href="../ko/" class="lang-btn" lang="ko">한국어</a>
+      </nav>
+
       <div class="home-content">
 
         <!-- Hero visual -->
         <div class="hero-visual">
           <img
             src="matrix-media-1783606965296-7a88b299.png"
-            alt="QuickPaste — Instant cross-device transfer"
+            alt="QuickPaste — 跨设备即时互传"
             class="hero-img"
             width="280"
             height="280"
@@ -81,7 +81,7 @@
         <p class="tagline">扫码即用 · 文本图片秒传 · 无需登录</p>
 
         <!-- Feature pills -->
-        <div class="feature-pills" role="list" aria-label="Features">
+        <div class="feature-pills" role="list" aria-label="功能特性">
           <span class="pill" role="listitem">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             端对端加密
@@ -92,7 +92,7 @@
           </span>
           <span class="pill" role="listitem">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
-            P2P 直传 transfer
+            P2P 直连传输
           </span>
         </div>
 
@@ -181,12 +181,12 @@
             </span>
             <span class="peer-count" id="peerCount">0</span>
           </div>
-          <div class="peer-list" id="peerList" aria-label="List of connected devices"></div>
+          <div class="peer-list" id="peerList" aria-label="已连接设备列表"></div>
         </div>
       </div>
 
       <!-- Messages -->
-      <div class="messages" id="messages" aria-live="polite" role="log" aria-label="Messages"></div>
+      <div class="messages" id="messages" aria-live="polite" role="log" aria-label="消息"></div>
 
       <!-- Composer -->
       <div class="composer">
@@ -206,7 +206,7 @@
             placeholder="说点什么…"
             autocomplete="off"
             enterkeyhint="send"
-            aria-label="Type a message"
+            aria-label="输入消息"
           />
         </div>
         <button id="sendBtn" class="send-btn" aria-label="发送">

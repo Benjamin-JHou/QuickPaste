@@ -455,6 +455,42 @@
 
     <hr class="divider" />
 
+    <!-- QR code deep dive -->
+    <section class="section">
+      <h2 class="section-title">How QR code scanning works</h2>
+      <p class="section-sub">What the QR code actually contains, and what happens when you scan it.</p>
+
+      <div class="install-card" style="margin-bottom:16px">
+        <h3>📦 What's encoded in the QR code</h3>
+        <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-top:8px">
+          The QR code displayed in the room is just a <strong>URL</strong> like <code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:12px">https://…/index.html#room=ABC234</code>. The 6-character room ID after <code>#room=</code> is the only data — no text content, no images, no personal info. Anyone with this URL can join that specific room.
+        </p>
+      </div>
+
+      <div class="install-card" style="margin-bottom:16px">
+        <h3>🔍 Scanning the QR on your phone</h3>
+        <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-top:8px">
+          On iOS, open the <strong>Camera</strong> app (or <strong>Code Scanner</strong>) and point at the QR. On Android, use <strong>Google Lens</strong> or the built-in camera. The phone decodes the URL and offers a banner link — tap it to open in your default browser, which will load QuickPaste and auto-join the room.
+        </p>
+      </div>
+
+      <div class="install-card" style="margin-bottom:16px">
+        <h3>🔐 Privacy of the QR code</h3>
+        <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-top:8px">
+          The QR only reveals the room ID. Once you join, content transferred through the room is sent <strong>device-to-device</strong> (WebRTC), not through any server. The QR code can't be used to "peek" at messages — it only opens a join page.
+        </p>
+      </div>
+
+      <div class="install-card">
+        <h3>📲 What if your phone has no camera or QR scanner?</h3>
+        <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-top:8px">
+          Use method B or C above: tap <strong>Copy share link</strong> on the host and send the URL via chat / email / AirDrop, or manually type the 6-character room code on the second device.
+        </p>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
     <!-- Install as app -->
     <section class="section">
       <h2 class="section-title">Install as an app</h2>
