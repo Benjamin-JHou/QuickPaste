@@ -2,13 +2,14 @@
  * 快贴 Service Worker
  * 离线缓存 + 静态资源预缓存
  * ============================================================ */
-const CACHE_VERSION = 'quickpaste-v3';
+const CACHE_VERSION = 'quickpaste-v4';
 const CORE_ASSETS = [
   './',
   './index.html',
   './style.css',
   './app.js',
   './manifest.json',
+  './tutorial/',
   './icons/icon-192.png',
   './icons/icon-512.png',
 ];

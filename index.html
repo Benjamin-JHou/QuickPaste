@@ -29,23 +29,23 @@
       <div class="bg-orb bg-orb--cyan" aria-hidden="true"></div>
       <div class="bg-grid" aria-hidden="true"></div>
 
-      <!-- Tutorial link (leftmost in the tools cluster) -->
-      <div class="topbar-tools" id="topbarTools">
-        <a id="tutorialLink" class="icon-btn" href="tutorial/" aria-label="Tutorial" title="Tutorial">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        </a>
-        <button id="themeBtn" class="icon-btn" aria-label="Switch theme" title="Toggle theme">
-          <svg id="themeIconBlue" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          <svg id="themeIconPink" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </button>
+      <!-- Top right cluster: [tutorial][theme] | [lang-nav] -->
+      <div class="topbar-right">
+        <div class="topbar-tools" id="topbarTools">
+          <a id="tutorialLink" class="icon-btn" href="tutorial/" aria-label="Tutorial" title="Tutorial">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </a>
+          <button id="themeBtn" class="icon-btn" aria-label="Switch theme" title="Toggle theme">
+            <svg id="themeIconBlue" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg id="themeIconPink" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+        <nav class="lang-nav" aria-label="Language">
+          <a href="./" class="lang-btn active" aria-current="page" lang="en">EN</a>
+          <a href="zh/" class="lang-btn" lang="zh">中文</a>
+          <a href="ko/" class="lang-btn" lang="ko">한국어</a>
+        </nav>
       </div>
-
-      <!-- Language switcher (rightmost) -->
-      <nav class="lang-nav" aria-label="Language">
-        <a href="./" class="lang-btn active" aria-current="page" lang="en">EN</a>
-        <a href="zh/" class="lang-btn" lang="zh">中文</a>
-        <a href="ko/" class="lang-btn" lang="ko">한국어</a>
-      </nav>
 
       <div class="home-content">
 

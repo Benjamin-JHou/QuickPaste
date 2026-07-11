@@ -643,22 +643,7 @@
     });
   }
 
-  // ── Layout: position topbar-tools to the left of .lang-nav ──
-  function positionTopbarTools() {
-    const langNav = document.querySelector('.lang-nav');
-    const tools = $('topbarTools');
-    if (!langNav || !tools) return;
-    const navWidth = langNav.offsetWidth;
-    const gap = 8;
-    // right offset = nav width + gap + 16 (base padding)
-    document.documentElement.style.setProperty('--tools-right-offset', (navWidth + gap + 16) + 'px');
-  }
-  positionTopbarTools();
-  window.addEventListener('resize', positionTopbarTools);
-  // Also re-measure when fonts load (widths change)
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(positionTopbarTools);
-  }
+  // ── Topbar layout handled by CSS flex (.topbar-right container) — no JS needed ──
 
   // Service Worker
   if ('serviceWorker' in navigator) {
